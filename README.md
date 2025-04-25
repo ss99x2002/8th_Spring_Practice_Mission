@@ -24,5 +24,5 @@
 | ♻️ **REFACTOR** | 코드 리팩토링 | `REFACTOR: 함수 구조 개선` |
 | 📦 **CHORE** | 빌드 업무 수정, 패키지 매니저 수정 등 production code와 무관한 변경 | `CHORE: .gitignore 파일 수정` |
 | 💬 **COMMENT** | 주석 추가 및 변경 | `COMMENT: 함수 설명 주석 추가` |
-| 🔥 **REMOVE** | 파일 또는 폴더 삭제 | `Remove(test1.cc): 불필요한 파일 삭제` |
-| 🚚 **RENAME** | 파일 또는 폴더명 수정 | `Rename(test2.cc): 폴더명 변경` |
+| 🔥 **REMOVE** | 파일 또는 폴더 삭제 | `REMOVE: 불필요한 파일 삭제` |
+| 🚚 **RENAME** | 파일 또는 폴더명 수정 | `RENAME: 폴더명 변경` |
