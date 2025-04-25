@@ -16,6 +16,13 @@
 4. pr 템플릿에 맞게 항목 채워주기
 
 ### 커밋 컨벤션
-- 실습 : practice
-- 미션 : mission
-과 같이 커밋해주시면 됩니다
+| 커밋 타입 | 설명 | 예시 |
+| ------- | ---- | ---- |
+| ✨ **FEAT** | 새로운 기능 추가 | `FEAT: 기능 추가` |
+| 🐛 **FIX** | 버그 수정 | `FIX: 오류 수정` |
+| 📄 **DOCS** | 문서 수정 | `DOCS: README 파일 수정` |
+| ♻️ **REFACTOR** | 코드 리팩토링 | `REFACTOR: 함수 구조 개선` |
+| 📦 **CHORE** | 빌드 업무 수정, 패키지 매니저 수정 등 production code와 무관한 변경 | `CHORE: .gitignore 파일 수정` |
+| 💬 **COMMENT** | 주석 추가 및 변경 | `COMMENT: 함수 설명 주석 추가` |
+| 🔥 **REMOVE** | 파일 또는 폴더 삭제 | `Remove(test1.cc): 불필요한 파일 삭제` |
+| 🚚 **RENAME** | 파일 또는 폴더명 수정 | `Rename(test2.cc): 폴더명 변경` |
