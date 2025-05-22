@@ -10,8 +10,8 @@ import umc.study.converter.UserPreferConverter;
 import umc.study.domain.mapping.PreferFood;
 import umc.study.domain.store.FoodCategory;
 import umc.study.domain.user.User;
-import umc.study.repository.FoodCategoryRepository;
-import umc.study.repository.UserRepository;
+import umc.study.repository.foodcategory.FoodCategoryRepository;
+import umc.study.repository.user.UserRepository;
 import umc.study.web.dto.request.UserRequestDto;
 
 import java.util.List;

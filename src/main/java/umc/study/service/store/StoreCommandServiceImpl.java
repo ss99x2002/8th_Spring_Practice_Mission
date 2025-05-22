@@ -6,7 +6,7 @@ import umc.study.converter.StoreConverter;
 import umc.study.domain.store.FoodCategory;
 import umc.study.domain.store.Region;
 import umc.study.domain.store.Store;
-import umc.study.repository.FoodCategoryRepository;
+import umc.study.repository.foodcategory.FoodCategoryRepository;
 import umc.study.repository.region.RegionRepository;
 import umc.study.repository.store.StoreRepository;
 import umc.study.web.dto.request.StoreRequestDto;
