@@ -3,7 +3,9 @@ package umc.study.domain.user;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import umc.study.domain.inquiry.Inquiry;
+import umc.study.domain.mapping.PreferFood;
 import umc.study.domain.review.Review;
 import umc.study.domain.common.BaseEntity;
 import umc.study.domain.enums.Gender;
@@ -33,9 +35,12 @@ public class User extends BaseEntity {
 
     private String address;
     private String email;
+
+    @ColumnDefault("0")
     private Integer point;
 
     @Column(name = "mission_completed")
+    @ColumnDefault("0")
     private Integer missionCompleted;
 
     @Enumerated(EnumType.STRING)
@@ -56,4 +61,6 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserNotification> userNotifications = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PreferFood> preferFoods = new ArrayList<>();
 }

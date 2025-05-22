@@ -9,6 +9,7 @@ import umc.study.domain.common.BaseEntity;
 @Entity
 @Getter
 @Builder
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class PreferFood extends BaseEntity {
@@ -23,4 +24,15 @@ public class PreferFood extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    public void setMember(User user){
+        if(this.user != null)
+            user.getPreferFoods().remove(this);
+        this.user = user;
+        user.getPreferFoods().add(this);
+    }
+
+    public void setFoodCategory(FoodCategory foodCategory){
+        this.category = foodCategory;
+    }
 }
