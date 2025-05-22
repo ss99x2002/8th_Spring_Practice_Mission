@@ -1,5 +1,6 @@
 package umc.study.web.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +21,8 @@ public class ReviewRestController {
     private final ReviewCommandService reviewCommandService;
 
     @PostMapping("/")
-    public ApiResponse<ReviewResponseDto.RegisterResultDto> registerStore(@RequestBody ReviewRequestDto.RegisterDto request) {
+    public ApiResponse<ReviewResponseDto.RegisterResultDto> registerStore(
+            @RequestBody @Valid ReviewRequestDto.RegisterDto request) {
         Review review = reviewCommandService.registerReview(request);
         return ApiResponse.onSuccess(ReviewConverter.toReviewRegisterResultDto(review));
     }

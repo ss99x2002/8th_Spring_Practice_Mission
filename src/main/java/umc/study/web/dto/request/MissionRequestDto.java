@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import umc.study.validation.annotation.ExistStore;
 
 import java.time.LocalDateTime;
 
@@ -14,6 +15,7 @@ public class MissionRequestDto {
     public static class RegisterDto {
 
         @NotNull
+        @ExistStore
         private Long storeId;
 
         @NotBlank(message = "미션 제목은 필수입니다.")

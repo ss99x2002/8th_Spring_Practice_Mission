@@ -2,6 +2,9 @@ package umc.study.service.store;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import umc.study.apiPayload.code.status.ErrorStatus;
+import umc.study.apiPayload.exception.handler.FoodCategoryHandler;
+import umc.study.apiPayload.exception.handler.RegionHandler;
 import umc.study.converter.StoreConverter;
 import umc.study.domain.store.FoodCategory;
 import umc.study.domain.store.Region;
@@ -22,9 +25,9 @@ public class StoreCommandServiceImpl implements StoreCommandService{
     @Override
     public Store registerStore(StoreRequestDto.RegisterDto request) {
         Region region =  regionRepository.findById(request.getRegionId())
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 지역입니다."));
+                .orElseThrow(() -> new RegionHandler(ErrorStatus.REGION_NOT_FOUND));
         FoodCategory category = foodCategoryRepository.findById(request.getFoodCategoryId())
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 카테고리입니다."));
+                .orElseThrow(() -> new FoodCategoryHandler(ErrorStatus.FOOD_CATEGORY_NOT_FOUND));
         Store newStore = StoreConverter.toStore(request, region, category);
         newStore.setCategory(category);
         return storeRepository.save(newStore);

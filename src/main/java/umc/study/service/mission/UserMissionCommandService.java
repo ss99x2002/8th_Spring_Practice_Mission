@@ -5,5 +5,5 @@ import umc.study.web.dto.request.UserMissionRequestDto;
 import umc.study.web.dto.response.UserMissionResponseDto;
 
 public interface UserMissionCommandService {
-    UserMission challengeMission(Long missionId, UserMissionRequestDto.RegisterDto request);
+    UserMission challengeMission(UserMissionRequestDto.RegisterDto request);
 }

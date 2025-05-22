@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import umc.study.validation.annotation.ExistCategories;
+import umc.study.validation.annotation.ExistStore;
 
 import java.math.BigDecimal;
 
@@ -15,6 +16,7 @@ public class ReviewRequestDto {
     public static class RegisterDto{
 
         @NotNull
+        @ExistStore
         private Long storeId;
 
         @NotNull

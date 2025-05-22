@@ -3,6 +3,9 @@ package umc.study.service.review;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import umc.study.apiPayload.code.status.ErrorStatus;
+import umc.study.apiPayload.exception.handler.StoreHandler;
+import umc.study.apiPayload.exception.handler.UserHandler;
 import umc.study.converter.ReviewConverter;
 import umc.study.domain.review.Review;
 import umc.study.domain.store.Store;
@@ -28,9 +31,9 @@ public class ReviewCommandServiceImpl implements ReviewCommandService {
     @Transactional
     public Review registerReview(ReviewRequestDto.RegisterDto request) {
         User user = userRepository.findById(request.getUserId())
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 유저입니다."));
+                .orElseThrow(() -> new UserHandler(ErrorStatus.MEMBER_NOT_FOUND));
         Store store = storeRepository.findById(request.getStoreId())
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 가게입니다."));
+                .orElseThrow(() -> new StoreHandler(ErrorStatus.STORE_NOT_FOUND));
         Review newReview = ReviewConverter.toReview(request,user,store);
         Review savedReview = reviewRepository.save(newReview);
         updateStoreAverageRate(store); // 사용자가 새롭게 평점 입력하면, store 평점이 업데이트 되어야함.

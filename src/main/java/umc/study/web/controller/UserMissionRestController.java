@@ -16,13 +16,12 @@ public class UserMissionRestController {
 
     private final UserMissionCommandService userMissionCommandService;
 
-    @PostMapping("/{missionId}/challenge")
+    @PostMapping("/challenge")
     public ApiResponse<UserMissionResponseDto.RegisterResultDto> challengeMission(
-            @PathVariable Long missionId,
             @RequestBody @Valid UserMissionRequestDto.RegisterDto request) {
 
         return ApiResponse.onSuccess(
-                UserMissionConverter.toUserMissionRegisterResultDto(userMissionCommandService.challengeMission(missionId, request))
+                UserMissionConverter.toUserMissionRegisterResultDto(userMissionCommandService.challengeMission(request))
         );
     }
 }
