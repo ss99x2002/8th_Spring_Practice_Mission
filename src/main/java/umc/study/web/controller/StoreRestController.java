@@ -10,7 +10,6 @@ import umc.study.apiPayload.ApiResponse;
 import umc.study.converter.StoreConverter;
 import umc.study.domain.store.Store;
 import umc.study.service.store.StoreCommandService;
-import umc.study.service.store.StoreCommandServiceImpl;
 import umc.study.web.dto.request.StoreRequestDto;
 import umc.study.web.dto.response.StoreResponseDto;
 
