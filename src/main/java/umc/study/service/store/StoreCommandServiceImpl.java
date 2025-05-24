@@ -29,7 +29,6 @@ public class StoreCommandServiceImpl implements StoreCommandService{
         FoodCategory category = foodCategoryRepository.findById(request.getFoodCategoryId())
                 .orElseThrow(() -> new FoodCategoryHandler(ErrorStatus.FOOD_CATEGORY_NOT_FOUND));
         Store newStore = StoreConverter.toStore(request, region, category);
-        newStore.setCategory(category);
         return storeRepository.save(newStore);
     }
 }
