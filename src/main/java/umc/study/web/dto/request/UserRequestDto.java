@@ -8,6 +8,7 @@ import lombok.Setter;
 import umc.study.domain.enums.Gender;
 import umc.study.validation.annotation.ExistCategories;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class UserRequestDto {
@@ -23,13 +24,7 @@ public class UserRequestDto {
         private Gender gender;
 
         @NotNull(message = "생년월일은 필수입니다.")
-        private Integer birthYear;
-
-        @NotNull(message = "생월은 필수입니다.")
-        private Integer birthMonth;
-
-        @NotNull(message = "생일은 필수입니다.")
-        private Integer birthDay;
+        private LocalDate birthday;
 
         @NotBlank(message = "주소는 필수입니다.")
         private String address;
