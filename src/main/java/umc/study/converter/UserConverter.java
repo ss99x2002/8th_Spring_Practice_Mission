@@ -15,7 +15,7 @@ public class UserConverter {
     public static UserResponseDto.JoinResultDTO toJoinResultDto(User user) {
         return UserResponseDto.JoinResultDTO.builder()
                 .userId(user.getId())
-                .createdAt(LocalDateTime.now())
+                .createdAt(user.getCreatedAt())
                 .build();
     }
 
@@ -35,10 +35,7 @@ public class UserConverter {
                 .gender(gender)
                 .preferFoods(new ArrayList<>())
                 .email(request.getEmail())
-                .birth(LocalDate.of(
-                        request.getBirthYear(),
-                        request.getBirthMonth(),
-                        request.getBirthDay()))
+                .birth(request.getBirthday())
                 .status(UserStatus.ACTIVE)
                 .point(0)
                 .missionCompleted(0)

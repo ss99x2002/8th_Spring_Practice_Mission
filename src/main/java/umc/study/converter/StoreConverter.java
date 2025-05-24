@@ -28,7 +28,7 @@ public class StoreConverter {
                 .id(store.getId())
                 .name(store.getStoreName())
                 .address(store.getAddress())
-                .createdAt(LocalDate.now())
+                .createdAt(store.getCreatedAt())
                 .build();
     }
 }

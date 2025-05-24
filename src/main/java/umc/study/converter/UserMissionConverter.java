@@ -24,7 +24,7 @@ public class UserMissionConverter {
                 .userId(userMission.getUser().getId())
                 .missionId(userMission.getMission().getMissionId())
                 .status(userMission.getStatus())
-                .createdAt(LocalDateTime.now())
+                .createdAt(userMission.getCreatedAt())
                 .build();
     }
 }
