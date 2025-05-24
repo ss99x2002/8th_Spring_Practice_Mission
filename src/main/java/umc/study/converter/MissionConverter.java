@@ -24,7 +24,7 @@ public class MissionConverter {
                 .missionId(mission.getMissionId())
                 .title(mission.getTitle())
                 .rewardPoint(mission.getRewardPoint())
-                .createdAt(LocalDateTime.now())
+                .createdAt(mission.getCreatedAt())
                 .build();
     }
 }
