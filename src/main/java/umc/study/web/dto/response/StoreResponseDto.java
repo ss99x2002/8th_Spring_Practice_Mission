@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class StoreResponseDto {
 
@@ -18,6 +18,6 @@ public class StoreResponseDto {
         private String name;
         private String address;
         private String categoryId;
-        private LocalDate createdAt;
+        private LocalDateTime createdAt;
     }
 }
