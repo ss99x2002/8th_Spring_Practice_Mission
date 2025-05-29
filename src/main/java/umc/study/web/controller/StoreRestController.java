@@ -29,6 +29,7 @@ public class StoreRestController {
     private final StoreQueryService storeQueryService;
 
     @PostMapping("/")
+    @Operation(summary = "가게 등록 API", description = "특정 가게 등록 API 입니다.")
     public ApiResponse<StoreResponseDto.RegisterResultDto> postRegisterStore(
             @RequestBody @Valid StoreRequestDto.RegisterDto request) {
         Store store = storeCommandService.registerStore(request);
@@ -36,6 +37,7 @@ public class StoreRestController {
     }
 
     @GetMapping("/{storeId}/missions")
+    @Operation(summary = "특정 가게의 미션 목록 조회 API", description = "특정 가게의 미션 목록을 조회하는 API이며, 페이징을 포함합니다. query String 으로 page, size를 주세요")
     public ApiResponse<StoreResponseDto.StoreMissionListDto> getStoreMissions(
             @PathVariable Long storeId,
             @RequestParam(defaultValue = "0") int page,
