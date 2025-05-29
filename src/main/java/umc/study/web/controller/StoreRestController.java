@@ -17,6 +17,7 @@ import umc.study.domain.store.Store;
 import umc.study.service.store.StoreCommandService;
 import umc.study.service.store.StoreQueryService;
 import umc.study.validation.annotation.ExistStore;
+import umc.study.validation.annotation.ValidatedPage;
 import umc.study.web.dto.request.StoreRequestDto;
 import umc.study.web.dto.response.StoreResponseDto;
 
@@ -40,8 +41,8 @@ public class StoreRestController {
     @Operation(summary = "특정 가게의 미션 목록 조회 API", description = "특정 가게의 미션 목록을 조회하는 API이며, 페이징을 포함합니다. query String 으로 page, size를 주세요")
     public ApiResponse<StoreResponseDto.StoreMissionListDto> getStoreMissions(
             @PathVariable Long storeId,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
+            @ValidatedPage @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "10") Integer size
     ) {
         Slice<Mission> storeMissions = storeQueryService.findMissionList(storeId, page, size);
         return ApiResponse.onSuccess(StoreConverter.toStoreMissionListDto(storeMissions));

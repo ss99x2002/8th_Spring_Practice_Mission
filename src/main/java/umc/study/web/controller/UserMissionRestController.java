@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import umc.study.apiPayload.ApiResponse;
 import umc.study.converter.UserMissionConverter;
 import umc.study.service.mission.UserMissionCommandService;
+import umc.study.validation.annotation.ValidatedPage;
 import umc.study.web.dto.request.UserMissionRequestDto;
 import umc.study.web.dto.response.UserMissionResponseDto;
 
@@ -21,8 +22,8 @@ public class UserMissionRestController {
     @Operation(summary = "사용자 도전중 미션 목록 조회 API", description = "사용자가 도전중인 미션들을 조회하는 API 입니다. 페이징이 포함되어 있어 Page, size를 주세요.")
     public ApiResponse<UserMissionResponseDto.UserMissionListDto> getInProgressMission(
             @PathVariable Long userId,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
+            @ValidatedPage @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "10") Integer size
     ) {
         return ApiResponse.onSuccess(
                 UserMissionConverter.toUserMissionListDto(userMissionCommandService.findInProgressMissions(userId, page, size))

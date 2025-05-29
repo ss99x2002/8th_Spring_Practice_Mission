@@ -10,6 +10,7 @@ import umc.study.apiPayload.ApiResponse;
 import umc.study.converter.ReviewConverter;
 import umc.study.domain.review.Review;
 import umc.study.service.review.ReviewCommandService;
+import umc.study.validation.annotation.ValidatedPage;
 import umc.study.web.dto.request.ReviewRequestDto;
 import umc.study.web.dto.response.ReviewResponseDto;
 
@@ -24,8 +25,8 @@ public class ReviewRestController {
     @Operation(summary = "사용자 작성 리뷰 목록 조회 API", description = "사용자가 작성한 리뷰 목록 조회 API 입니다. 페이징을 포함하고 있으며 page, size 값을 주세요 ")
     public ApiResponse<ReviewResponseDto.UserReviewListResult> getUserReviewList(
             @PathVariable Long userId,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
+            @ValidatedPage @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "10") Integer size) {
         Slice<Review> reviewList = reviewCommandService.findUserReviewList(userId, page, size);
         return ApiResponse.onSuccess(ReviewConverter.toUserReviewResultDto(reviewList));
     }
