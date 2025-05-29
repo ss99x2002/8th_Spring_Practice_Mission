@@ -14,6 +14,18 @@ public class UserMissionResponseDto {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
+    public static class CompletedResultDto {
+        private Long userMissionId;
+        private Long userId;
+        private Long missionId;
+        private MissionStatus status;
+        private LocalDateTime updatedAt;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class RegisterResultDto {
         private Long userMissionId;
         private Long userId;

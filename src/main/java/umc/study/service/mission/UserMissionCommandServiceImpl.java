@@ -2,10 +2,12 @@ package umc.study.service.mission;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import umc.study.apiPayload.code.status.ErrorStatus;
 import umc.study.apiPayload.exception.handler.MissionHandler;
 import umc.study.apiPayload.exception.handler.UserHandler;
 import umc.study.converter.UserMissionConverter;
+import umc.study.domain.enums.MissionStatus;
 import umc.study.domain.mapping.UserMission;
 import umc.study.domain.mission.Mission;
 import umc.study.domain.user.User;
@@ -32,6 +34,23 @@ public class UserMissionCommandServiceImpl implements UserMissionCommandService 
 
         UserMission userMission = UserMissionConverter.toUserMission(user, mission);
 
+        return userMissionRepository.save(userMission);
+    }
+
+    @Override
+    @Transactional
+    public UserMission completeMission(UserMissionRequestDto.CompletedDto request) {
+
+       userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new UserHandler(ErrorStatus.MEMBER_NOT_FOUND));
+       missionRepository.findById(request.getMissionId())
+                .orElseThrow(() -> new MissionHandler(ErrorStatus.MISSION_NOT_FOUND));
+
+        UserMission userMission = userMissionRepository
+                .findByUserIdAndMission_MissionId(request.getUserId(), request.getMissionId())
+                .orElseThrow(() -> new MissionHandler(ErrorStatus.USER_MISSION_NOT_FOUND));
+
+        userMission.completeUserMission();
         return userMissionRepository.save(userMission);
     }
 }

@@ -7,6 +7,17 @@ import umc.study.validation.annotation.ChallengeMission;
 
 public class UserMissionRequestDto {
 
+
+    @Getter
+    @Setter
+    public static class CompletedDto {
+        @NotNull(message = "유저 ID는 필수입니다.")
+        private Long userId;
+
+        @NotNull(message = "미션 ID는 필수입니다,")
+        private Long missionId;
+    }
+
     @Getter
     @Setter
     @ChallengeMission

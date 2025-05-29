@@ -24,4 +24,12 @@ public class UserMissionRestController {
                 UserMissionConverter.toUserMissionRegisterResultDto(userMissionCommandService.challengeMission(request))
         );
     }
+
+    @PostMapping("/completed")
+    public ApiResponse<UserMissionResponseDto.CompletedResultDto> completedMission(
+            @RequestBody @Valid UserMissionRequestDto.CompletedDto request) {
+        return ApiResponse.onSuccess(
+                UserMissionConverter.toUserMissionCompletedResultDto(userMissionCommandService.completeMission(request))
+        );
+    }
 }

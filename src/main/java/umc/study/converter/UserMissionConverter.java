@@ -18,6 +18,16 @@ public class UserMissionConverter {
                 .build();
     }
 
+    public static UserMissionResponseDto.CompletedResultDto toUserMissionCompletedResultDto(UserMission userMission) {
+        UserMissionResponseDto.CompletedResultDto.builder()
+                .userMissionId(userMission.getId())
+                .userId(userMission.getUser().getId())
+                .missionId(userMission.getMission().getMissionId())
+                .status(userMission.getStatus())
+                .updatedAt(userMission.getUpdatedAt())
+                .build();
+    }
+
     public static UserMissionResponseDto.RegisterResultDto toUserMissionRegisterResultDto(UserMission userMission) {
         return UserMissionResponseDto.RegisterResultDto.builder()
                 .userMissionId(userMission.getId())

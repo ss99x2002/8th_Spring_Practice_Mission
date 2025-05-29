@@ -28,6 +28,7 @@ public enum ErrorStatus implements BaseErrorCode {
     //미션 관련 에러
     MISSION_NOT_FOUND(HttpStatus.BAD_REQUEST, "MISSION4001", "존재하지 않는 미션입니다,"),
     DUPLICATE_CHALLENGE(HttpStatus.BAD_REQUEST, "MISSION4002", "이미 도전 중인 미션입니다."),
+    USER_MISSION_NOT_FOUND(HttpStatus.BAD_REQUEST,"MISSION4003", "사용자의 미션을 찾을 수 없습니다."),
 
     // 음식 카테고리 관련 에러
     FOOD_CATEGORY_NOT_FOUND(HttpStatus.NOT_FOUND, "FOOD4001", "음식 카테고리가 없습니다.");
