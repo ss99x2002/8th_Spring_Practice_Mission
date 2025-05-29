@@ -19,7 +19,7 @@ public class ChallengeMissionExistValidator implements ConstraintValidator<Chall
     public boolean isValid(UserMissionRequestDto.RegisterDto request, ConstraintValidatorContext context) {
         if (request.getUserId() == null || request.getMissionId() == null) return true;
 
-        boolean exists = userMissionRepository.existsByUserIdAndMissionIdAndStatus(
+        boolean exists = userMissionRepository.existsByUserIdAndMission_MissionIdAndStatus(
                 request.getUserId(), request.getMissionId(), MissionStatus.IN_PROGRESS
         );
 
