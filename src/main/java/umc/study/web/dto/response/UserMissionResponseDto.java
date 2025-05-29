@@ -7,8 +7,32 @@ import lombok.NoArgsConstructor;
 import umc.study.domain.enums.MissionStatus;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class UserMissionResponseDto {
+
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UserMissionListDto {
+        private List<UserMissionDto> userMissions;
+        private boolean hasNext;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UserMissionDto {
+        private Long missionId;
+        private String storeName;
+        private String title;
+        private Integer rewardPoint;
+        private String missionStatus;
+        private LocalDateTime createdAt;
+    }
 
     @Builder
     @Getter

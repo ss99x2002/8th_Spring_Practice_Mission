@@ -16,8 +16,19 @@ public class UserMissionRestController {
 
     private final UserMissionCommandService userMissionCommandService;
 
+    @GetMapping("/{userId}/in_progress")
+    public ApiResponse<UserMissionResponseDto.UserMissionListDto> getInProgressMission(
+            @PathVariable Long userId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        return ApiResponse.onSuccess(
+                UserMissionConverter.toUserMissionListDto(userMissionCommandService.findInProgressMissions(userId, page, size))
+        );
+    }
+
     @PostMapping("/challenge")
-    public ApiResponse<UserMissionResponseDto.RegisterResultDto> challengeMission(
+    public ApiResponse<UserMissionResponseDto.RegisterResultDto> postChallengeMission(
             @RequestBody @Valid UserMissionRequestDto.RegisterDto request) {
 
         return ApiResponse.onSuccess(
@@ -26,7 +37,7 @@ public class UserMissionRestController {
     }
 
     @PostMapping("/completed")
-    public ApiResponse<UserMissionResponseDto.CompletedResultDto> completedMission(
+    public ApiResponse<UserMissionResponseDto.CompletedResultDto> postCompletedMission(
             @RequestBody @Valid UserMissionRequestDto.CompletedDto request) {
         return ApiResponse.onSuccess(
                 UserMissionConverter.toUserMissionCompletedResultDto(userMissionCommandService.completeMission(request))

@@ -1,12 +1,13 @@
 package umc.study.converter;
 
+import org.springframework.data.domain.Slice;
 import umc.study.domain.enums.MissionStatus;
 import umc.study.domain.mapping.UserMission;
 import umc.study.domain.mission.Mission;
 import umc.study.domain.user.User;
 import umc.study.web.dto.response.UserMissionResponseDto;
-
-import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserMissionConverter {
 
@@ -34,6 +35,28 @@ public class UserMissionConverter {
                 .userId(userMission.getUser().getId())
                 .missionId(userMission.getMission().getMissionId())
                 .status(userMission.getStatus())
+                .createdAt(userMission.getCreatedAt())
+                .build();
+    }
+
+    public static UserMissionResponseDto.UserMissionListDto toUserMissionListDto(Slice<UserMission> userMissionSlice) {
+        List<UserMissionResponseDto.UserMissionDto> missionDtoList = userMissionSlice.getContent().stream()
+                .map(UserMissionConverter::toUserMissionDto)
+                .collect(Collectors.toList());
+
+        return UserMissionResponseDto.UserMissionListDto.builder()
+                .userMissions(missionDtoList)
+                .hasNext(userMissionSlice.hasNext())
+                .build();
+    }
+
+    private static UserMissionResponseDto.UserMissionDto toUserMissionDto(UserMission userMission) {
+        return UserMissionResponseDto.UserMissionDto.builder()
+                .missionId(userMission.getMission().getMissionId())
+                .storeName(userMission.getMission().getStore().getStoreName())
+                .title(userMission.getMission().getTitle())
+                .rewardPoint(userMission.getMission().getRewardPoint())
+                .missionStatus(userMission.getStatus().name())
                 .createdAt(userMission.getCreatedAt())
                 .build();
     }

@@ -1,15 +1,15 @@
 package umc.study.web.dto.request;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import umc.study.validation.annotation.ChallengeMission;
 
 public class UserMissionRequestDto {
 
-
     @Getter
-    @Setter
+    @Builder
     public static class CompletedDto {
         @NotNull(message = "유저 ID는 필수입니다.")
         private Long userId;
@@ -19,7 +19,7 @@ public class UserMissionRequestDto {
     }
 
     @Getter
-    @Setter
+    @Builder
     @ChallengeMission
     public static class RegisterDto {
         @NotNull(message = "유저 ID는 필수입니다.")

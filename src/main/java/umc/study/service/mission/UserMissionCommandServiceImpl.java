@@ -1,6 +1,10 @@
 package umc.study.service.mission;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import umc.study.apiPayload.code.status.ErrorStatus;
@@ -25,6 +29,15 @@ public class UserMissionCommandServiceImpl implements UserMissionCommandService 
     private final UserMissionRepository userMissionRepository;
 
     @Override
+    public Slice<UserMission> findInProgressMissions(Long userId, Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+        Slice<UserMission> userMissionsInProgress = userMissionRepository.findByUserIdAndStatus(
+                userId, MissionStatus.IN_PROGRESS, pageable);
+
+        return userMissionsInProgress;
+    }
+
+    @Override
     public UserMission challengeMission(UserMissionRequestDto.RegisterDto request) {
 
         User user = userRepository.findById(request.getUserId())
@@ -41,9 +54,9 @@ public class UserMissionCommandServiceImpl implements UserMissionCommandService 
     @Transactional
     public UserMission completeMission(UserMissionRequestDto.CompletedDto request) {
 
-       userRepository.findById(request.getUserId())
+        userRepository.findById(request.getUserId())
                 .orElseThrow(() -> new UserHandler(ErrorStatus.MEMBER_NOT_FOUND));
-       missionRepository.findById(request.getMissionId())
+        missionRepository.findById(request.getMissionId())
                 .orElseThrow(() -> new MissionHandler(ErrorStatus.MISSION_NOT_FOUND));
 
         UserMission userMission = userMissionRepository
