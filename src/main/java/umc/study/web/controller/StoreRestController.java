@@ -29,14 +29,14 @@ public class StoreRestController {
     private final StoreQueryService storeQueryService;
 
     @PostMapping("/")
-    public ApiResponse<StoreResponseDto.RegisterResultDto> registerStore(
+    public ApiResponse<StoreResponseDto.RegisterResultDto> postRegisterStore(
             @RequestBody @Valid StoreRequestDto.RegisterDto request) {
         Store store = storeCommandService.registerStore(request);
         return ApiResponse.onSuccess(StoreConverter.toStoreResponseDto(store));
     }
 
     @GetMapping("/{storeId}/missions")
-    public ApiResponse<StoreResponseDto.StoreMissionListDto> findStoreMissions(
+    public ApiResponse<StoreResponseDto.StoreMissionListDto> getStoreMissions(
             @PathVariable Long storeId,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
@@ -57,7 +57,7 @@ public class StoreRestController {
     @Parameters({
             @Parameter(name = "storeId", description = "가게의 아이디, path variable 입니다!")
     })
-    public ApiResponse<StoreResponseDto.ReviewPreViewListDto> findStoreReviews(@PathVariable(name = "storeId") Long storeId, @RequestParam(name = "page") Integer page) {
+    public ApiResponse<StoreResponseDto.ReviewPreViewListDto> getStoreReviews(@PathVariable(name = "storeId") Long storeId, @RequestParam(name = "page") Integer page) {
         storeQueryService.getReviewList(storeId, page);
         return null;
     }

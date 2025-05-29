@@ -17,7 +17,7 @@ public class MissionRestController {
     private final MissionCommandService missionCommandService;
 
     @PostMapping("/")
-    public ApiResponse<MissionResponseDto.RegisterResultDto> registerMission(
+    public ApiResponse<MissionResponseDto.RegisterResultDto> postRegisterMission(
             @RequestBody @Valid MissionRequestDto.RegisterDto request) {
         return ApiResponse.onSuccess(
                 MissionConverter.toMissionRegisterResultDto(missionCommandService.registerMission(request))

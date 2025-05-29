@@ -20,7 +20,7 @@ public class ReviewRestController {
     private final ReviewCommandService reviewCommandService;
 
     @GetMapping("/users/{userId}")
-    public ApiResponse<ReviewResponseDto.UserReviewListResult> findUserReviewList(
+    public ApiResponse<ReviewResponseDto.UserReviewListResult> getUserReviewList(
             @PathVariable Long userId,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
@@ -30,7 +30,7 @@ public class ReviewRestController {
 
 
     @PostMapping("/")
-    public ApiResponse<ReviewResponseDto.RegisterResultDto> registerStore(
+    public ApiResponse<ReviewResponseDto.RegisterResultDto> postRegisterStore(
             @RequestBody @Valid ReviewRequestDto.RegisterDto request) {
         Review review = reviewCommandService.registerReview(request);
         return ApiResponse.onSuccess(ReviewConverter.toReviewRegisterResultDto(review));
