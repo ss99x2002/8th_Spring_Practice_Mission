@@ -2,7 +2,7 @@ package umc.study.service.review;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import umc.study.apiPayload.code.status.ErrorStatus;
 import umc.study.apiPayload.exception.handler.StoreHandler;
@@ -15,6 +15,7 @@ import umc.study.repository.review.ReviewRepository;
 import umc.study.repository.store.StoreRepository;
 import umc.study.repository.user.UserRepository;
 import umc.study.web.dto.request.ReviewRequestDto;
+import umc.study.web.dto.response.ReviewResponseDto;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -35,10 +36,16 @@ public class ReviewCommandServiceImpl implements ReviewCommandService {
                 .orElseThrow(() -> new UserHandler(ErrorStatus.MEMBER_NOT_FOUND));
         Store store = storeRepository.findById(request.getStoreId())
                 .orElseThrow(() -> new StoreHandler(ErrorStatus.STORE_NOT_FOUND));
-        Review newReview = ReviewConverter.toReview(request,user,store);
+        Review newReview = ReviewConverter.toReview(request, user, store);
         Review savedReview = reviewRepository.save(newReview);
         updateStoreAverageRate(store); // 사용자가 새롭게 평점 입력하면, store 평점이 업데이트 되어야함.
         return savedReview;
+    }
+
+    @Override
+    public Slice<Review> findUserReviewList(Long userId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+        return reviewRepository.findByUserId(userId, pageable);
     }
 
     private void updateStoreAverageRate(Store store) {

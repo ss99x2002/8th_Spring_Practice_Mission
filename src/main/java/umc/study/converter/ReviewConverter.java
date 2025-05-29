@@ -1,5 +1,6 @@
 package umc.study.converter;
 
+import org.springframework.data.domain.Slice;
 import umc.study.domain.review.Review;
 import umc.study.domain.store.Store;
 import umc.study.domain.user.User;
@@ -8,6 +9,7 @@ import umc.study.web.dto.response.ReviewResponseDto;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ReviewConverter {
 
@@ -19,6 +21,23 @@ public class ReviewConverter {
                 .reviewContent(request.getReviewContent())
                 .score(request.getScore())
                 .imageUrl(request.getImageUrl())
+                .build();
+    }
+
+    public static ReviewResponseDto.UserReviewListResult toUserReviewResultDto(Slice<Review> reviewSlice) {
+        List<ReviewResponseDto.UserReviewDto> reviewDtoList = reviewSlice.stream()
+                .map(review -> ReviewResponseDto.UserReviewDto.builder()
+                        .reviewId(review.getId())
+                        .storeName(review.getStore().getStoreName())
+                        .content(review.getReviewContent())
+                        .score(review.getScore())
+                        .createdAt(review.getCreatedAt())
+                        .build())
+                .collect(Collectors.toList());
+
+        return ReviewResponseDto.UserReviewListResult.builder()
+                .reviews(reviewDtoList)
+                .hasNext(reviewSlice.hasNext())
                 .build();
     }
 

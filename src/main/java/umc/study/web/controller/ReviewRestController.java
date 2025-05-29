@@ -1,11 +1,10 @@
 package umc.study.web.controller;
 
 import jakarta.validation.Valid;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Slice;
+import org.springframework.web.bind.annotation.*;
 import umc.study.apiPayload.ApiResponse;
 import umc.study.converter.ReviewConverter;
 import umc.study.domain.review.Review;
@@ -20,10 +19,22 @@ public class ReviewRestController {
 
     private final ReviewCommandService reviewCommandService;
 
+    @GetMapping("/users/{userId}")
+    public ApiResponse<ReviewResponseDto.UserReviewListResult> findUserReviewList(
+            @PathVariable Long userId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        Slice<Review> reviewList = reviewCommandService.findUserReviewList(userId, page, size);
+        return ApiResponse.onSuccess(ReviewConverter.toUserReviewResultDto(reviewList));
+    }
+
+
     @PostMapping("/")
     public ApiResponse<ReviewResponseDto.RegisterResultDto> registerStore(
             @RequestBody @Valid ReviewRequestDto.RegisterDto request) {
         Review review = reviewCommandService.registerReview(request);
         return ApiResponse.onSuccess(ReviewConverter.toReviewRegisterResultDto(review));
     }
+
+
 }

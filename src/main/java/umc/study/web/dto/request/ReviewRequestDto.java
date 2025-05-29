@@ -11,6 +11,17 @@ import java.math.BigDecimal;
 
 public class ReviewRequestDto {
 
+
+    @Getter
+    @Setter
+    public static class UserReviewListRequest {
+        @NotNull
+        private Long userId;
+        private Integer page;
+        private Integer size;
+    }
+
+
     @Getter
     @Setter
     public static class RegisterDto{
