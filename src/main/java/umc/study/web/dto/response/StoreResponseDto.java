@@ -5,11 +5,37 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class StoreResponseDto {
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class StoreMissionListDto{
+        private List<StoreResponseDto.StoreMissionDto> reviews;
+        private boolean hasNext;
+    }
+
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class StoreMissionDto{
+        private Long storeId;
+        private String storeName;
+        private String missionTitle;
+        private String missionContent;
+        private int rewardPoint;
+        private LocalDate endDate;
+        private LocalDateTime createdAt;
+    }
+
 
     @Builder
     @Getter

@@ -43,7 +43,7 @@ public class ReviewCommandServiceImpl implements ReviewCommandService {
     }
 
     @Override
-    public Slice<Review> findUserReviewList(Long userId, int page, int size) {
+    public Slice<Review> findUserReviewList(Long userId, Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
         return reviewRepository.findByUserId(userId, pageable);
     }

@@ -1,5 +1,7 @@
 package umc.study.converter;
 
+import org.springframework.data.domain.Slice;
+import umc.study.domain.mission.Mission;
 import umc.study.domain.review.Review;
 import umc.study.domain.store.FoodCategory;
 import umc.study.domain.store.Region;
@@ -14,6 +16,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class StoreConverter {
     public static Store toStore(StoreRequestDto.RegisterDto request, Region region, FoodCategory category) {
@@ -35,10 +38,34 @@ public class StoreConverter {
                 .build();
     }
 
-    public static StoreResponseDto.ReviewPreViewDto reviewPreViewDTO(Review review){
+
+    public static StoreResponseDto.StoreMissionListDto toStoreMissionListDto(Slice<Mission> missions) {
+        List<StoreResponseDto.StoreMissionDto> missionDtos = missions.stream()
+                .map(StoreConverter::toStoreMissionDto)
+                .collect(Collectors.toList());
+
+        return StoreResponseDto.StoreMissionListDto.builder()
+                .reviews(missionDtos)
+                .hasNext(missions.hasNext())
+                .build();
+    }
+
+    public static StoreResponseDto.StoreMissionDto toStoreMissionDto(Mission mission) {
+        return StoreResponseDto.StoreMissionDto.builder()
+                .storeId(mission.getStore().getId())
+                .storeName(mission.getStore().getStoreName())
+                .missionTitle(mission.getTitle())
+                .missionContent(mission.getMissionContent())
+                .rewardPoint(mission.getRewardPoint())
+                .endDate(mission.getEndDate().toLocalDate())
+                .createdAt(mission.getCreatedAt())
+                .build();
+    }
+
+    public static StoreResponseDto.ReviewPreViewDto reviewPreViewDto(Review review){
         return null;
     }
-    public static StoreResponseDto.ReviewPreViewListDto reviewPreViewListDTO(List<Review> reviewList){
+    public static StoreResponseDto.ReviewPreViewListDto reviewPreViewListDto(List<Review> reviewList){
         return null;
     }
 }

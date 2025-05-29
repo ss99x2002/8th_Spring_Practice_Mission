@@ -19,7 +19,7 @@ public class UserMissionConverter {
     }
 
     public static UserMissionResponseDto.CompletedResultDto toUserMissionCompletedResultDto(UserMission userMission) {
-        UserMissionResponseDto.CompletedResultDto.builder()
+        return UserMissionResponseDto.CompletedResultDto.builder()
                 .userMissionId(userMission.getId())
                 .userId(userMission.getUser().getId())
                 .missionId(userMission.getMission().getMissionId())

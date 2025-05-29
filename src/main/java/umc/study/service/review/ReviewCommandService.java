@@ -7,5 +7,5 @@ import umc.study.web.dto.request.ReviewRequestDto;
 public interface ReviewCommandService {
     Review registerReview(ReviewRequestDto.RegisterDto request);
 
-    Slice<Review> findUserReviewList(Long userId, int page, int size);
+    Slice<Review> findUserReviewList(Long userId, Integer page, Integer size);
 }
