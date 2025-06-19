@@ -21,9 +21,10 @@ public class UserRestController {
 
     private final UserCommandService userCommandService;
 
-    @PostMapping("/")
+    @PostMapping("/signup")
     @Operation(summary = "회원가입 API", description = "서비스 회원가입을 위한 API 입니다.")
-    public ApiResponse<UserResponseDto.JoinResultDTO> join(@RequestBody @Valid UserRequestDto.JoinDto request) {
+    public ApiResponse<UserResponseDto.JoinResultDTO> join(
+            @RequestBody @Valid UserRequestDto.JoinDto request) {
         User user = userCommandService.joinUser(request);
         return ApiResponse.onSuccess(UserConverter.toJoinResultDto(user));
     }
